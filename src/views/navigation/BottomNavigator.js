@@ -5,23 +5,28 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import COLORS from "../../consts/colors";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import CartScreen from "../screens/CartScreen";
-import { View , StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
+import { useSelector } from "react-redux";
+import { cartTotalSelector } from "../../redux/selectors";
+import IconBadge from "react-native-icon-badge";
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigator = () => {
+  const total = useSelector(cartTotalSelector);
+
   return (
     <Tab.Navigator
-    screenOptions={{
-      tabBarStyle: {
-        height: 55,
-        borderTopWidth: 0,
-        elevation: 0,
-      },
-      tabBarShowLabel: false,
-      tabBarActiveTintColor: COLORS.primary,
-      headerShown: false,
-    }}
+      screenOptions={{
+        tabBarStyle: {
+          height: 55,
+          borderTopWidth: 0,
+          elevation: 0,
+        },
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: COLORS.primary,
+        headerShown: false,
+      }}
     >
       <Tab.Screen
         name="HomeScreen"
@@ -46,9 +51,7 @@ const BottomNavigator = () => {
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <View
-              style={styles.search}
-            >
+            <View style={styles.search}>
               <Icon name="search" color={COLORS.primary} size={28} />
             </View>
           ),
@@ -68,7 +71,23 @@ const BottomNavigator = () => {
         component={CartScreen}
         options={{
           tabBarIcon: ({ color }) => (
-            <Icon name="shopping-cart" color={color} size={28} />
+            (
+              <IconBadge
+                MainElement={
+                  <Icon name="shopping-cart" color={color} size={28} />
+                }
+                BadgeElement={
+                  <Text style={{ color: "white", fontSize: 12 }}>{total}</Text>
+                }
+                IconBadgeStyle={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: "#ff0000",
+                  margin: -6,
+                }}
+                Hidden={total===0}
+              />
+            )
           ),
         }}
       />
@@ -78,9 +97,8 @@ const BottomNavigator = () => {
 
 export default BottomNavigator;
 
-
 const styles = StyleSheet.create({
-  search:{
+  search: {
     height: 60,
     width: 60,
     justifyContent: "center",
@@ -91,5 +109,5 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     top: -25,
     elevation: 5,
-  }
-})
+  },
+});
