@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "MiniPro-app",
+    "slug": "MiniPro-app",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "src/assets/app/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "src/assets/app/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": ""
+    }
+  }
+}
