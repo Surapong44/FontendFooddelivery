@@ -14,6 +14,7 @@ const cardWidth = width / 2 - 20;
 export const Card = ({ food }) => {
   const navigation = useNavigation();
   const orientation = useOrientation();
+  const isOrientation = orientation.height;
   const dispatch = useDispatch();
 
   return (
@@ -23,8 +24,8 @@ export const Card = ({ food }) => {
       onPress={() => navigation.navigate("DetailsScreen", food)}
     >
       <View
-        style={{...styles.card, height: orientation.height > 500 ? 220 : 90}}
-        width={orientation.width < 700 ? cardWidth : orientation.width / 2.12}
+        style={{ ...styles.card, height: orientation.height > 500 ? 220 : 90 }}
+        width={orientation.width < 700 ? cardWidth : orientation.width / 2.23}
       >
         <View style={{ alignItems: "center", top: -40 }}>
           <Image
@@ -36,11 +37,15 @@ export const Card = ({ food }) => {
           />
         </View>
         <View style={{ marginHorizontal: 20 }}>
-          <Text style={{ fontSize: orientation.height > 500 ? 18 : 12
-            , fontWeight: "bold",
-            marginTop: orientation.height > 500 ? 5 : -31
-
-            }}>{food.name}</Text>
+          <Text
+            style={{
+              fontSize: orientation.height > 500 ? 18 : 12,
+              fontWeight: "bold",
+              marginTop: orientation.height > 500 ? 5 : -31,
+            }}
+          >
+            {food.name}
+          </Text>
           <Text style={{ fontSize: 14, color: COLORS.grey, marginTop: 2 }}>
             {food.ingredients}
           </Text>
@@ -56,11 +61,16 @@ export const Card = ({ food }) => {
           <Text style={{ fontSize: 18, fontWeight: "bold" }}>
             ${food.price}
           </Text>
-          <View style={styles.addToCartBtn}>
-            <Icon name="add" size={20} color={COLORS.white}  
-              onPress={() => dispatch(addToCart(food))}
-             />
-          </View>
+          {isOrientation > 500 && (
+            <View style={styles.addToCartBtn}>
+              <Icon
+                name="add"
+                size={20}
+                color={COLORS.white}
+                onPress={() => dispatch(addToCart(food))}
+              />
+            </View>
+          )}
         </View>
       </View>
     </TouchableHighlight>

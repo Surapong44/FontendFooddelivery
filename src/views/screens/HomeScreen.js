@@ -10,6 +10,7 @@ import { ListCategories } from "../components/ListCategories";
 
 const HomeScreen = () => {
   const orientation = useOrientation();
+  console.log(["height " + orientation.height ,"width " + orientation.width])
 
   return (
     <View style={styles.container}>
